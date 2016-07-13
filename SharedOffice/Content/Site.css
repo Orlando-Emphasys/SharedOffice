@@ -61,6 +61,7 @@ html, body
 
 .subMenuContainer
 {
+    text-align: center;
     float: left;
     width: 12%;
     height: 100%;    
@@ -68,9 +69,24 @@ html, body
     border-color: black;
 }
 
+.subMenuHeader
+{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .contentContainer
 {
     display:inline-block;
     width: 88%;
     height: 100%;
+}
+
+#kitchenHub
+{
+    float: right;
+    width: 30%;
+    height: 40%;
+    border: solid;
+    border-color: black;
 }
