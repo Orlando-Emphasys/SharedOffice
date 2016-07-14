@@ -1,13 +1,170 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@*@{
+        ViewBag.Title = "Home Page";
+    }*@
+
+<style>
+    .contentContainer {
+        display: inline-block;
+        overflow:no-display;
+    }
+
+    #votesSection {
+        margin: auto;
+        display: inline-block;
+        padding-right: 5px;
+    }
+
+    .postsContainer {
+        width: 50%;
+        margin: auto;
+    }
+
+    h1 {
+        color: blue;
+    }
+
+</style>
 
 <div class="subMenuContainer">
     <p class="subMenuHeader">Channels</p>
+
+    <script id="channelTemplate" type="text/x-handlebars-template">
+        {{#each this}}
+        <p>{{name}}</p>
+        {{/each}}
+    </script>   <!--End of handleBars script-->
 </div>
 
 <div class="contentContainer">
-    <div id="kitchenHub">
+    <div id="kitchenHub"></div>
 
+    <!-- posts Content div-->
+    <div class="postsContainer">
+
+        <div id="newsFeed">
+            <h1>Top Trending</h1>
+            <script id="topTrendingTemplate" type="text/x-handlebars-template">
+                <div id="post">
+                    {{#each this}}
+                    <p>{{content}}</p>
+                    <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
+                    <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
+
+                    <div id="votesSection">
+                        <p id="likes-{{ID}}">Likes:{{upVotes}}</p>
+                        <p id="dislikes-{{ID}}">Dislikes:{{downVotes}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+            </script>   <!--End of handleBars script-->
+        </div>
+
+        <!--Latests Posts-->
+        <div id="latestPosts">
+            <h1>Latest Posts</h1>
+            <script id="latestPostsTemplate" type="text/x-handlebars-template">
+                {{#each this}}
+                <p>{{content}}</p>
+                <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
+                <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
+                <div id="votesSection">
+                    <p id="likes-{{ID}}">Likes:{{upVotes}}</p>
+                    <p id="dislikes-{{ID}}">Dislikes:{{downVotes}}</p>
+                </div>
+                {{/each}}
+            </script>   <!--End of handleBars script-->
+        </div>
     </div>
 </div>
+
+<!--AJAX-->
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: '/Home/LoadChannels',
+            //data: { 'id': id },
+            dataType: "json",
+            success: populateChannels
+        });
+
+        //populate initial newsFeed
+        $.ajax({
+            type: "POST",
+            url: '/Home/loadtop5Posts',
+            dataType: "json",
+            success: populatePosts
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '/Home/loadtop5Posts',
+            dataType: "json",
+            success: populateLatestPosts
+        });
+
+        var voteHub = $.connection.voteHub; // definition in VoteHub.cs
+        $.connection.hub.start().done(function () {
+
+            voteUp = function (id) { // like btn.
+                //cache the like/dislike btn.
+                //var btn_like = $("#voteUp-" + id);
+                //var btn_dislike = $("#voteDown-" + id);
+
+                voteHub.server.voteUp(id); // increment total amount of votes.
+                //btn_like[0].disabled = true; // disable the button.
+                //btn_like.addClass('btnDisabled');
+
+                //if (btn_dislike.is(":disabled")) { // if dislike btn is enabled the user hasnt voted.
+                //    btn_dislike[0].disabled = false; //enable back the dislike btn.
+                //    btn_dislike.removeClass('btnDisabled');
+                //}
+            }
+
+            voteDown = function (id) {
+                //cache the like/dislike btn.
+                //var btn_like = $("#voteUp-" + id);
+                //var btn_dislike = $("#voteDown-" + id);
+
+                voteHub.server.voteDown(id);
+                //btn_dislike[0].disabled = true; //disable the button.
+                //btn_dislike.addClass('btnDisabled');
+
+                //if (btn_like.is(":disabled")) {
+                //    btn_like[0].disabled = false;//enable back the like btn.
+                //    btn_like.removeClass('btnDisabled');
+                //}
+            }
+
+            voteHub.client.updateVoteResults = function (id, post) {
+
+                console.log("updating votes");
+                //update view.
+                $("#likes-" + id).text(post.upVotes);
+                $("#dislikes-" + id).text(post.downVotes);
+            }
+        });
+
+    });
+
+    function populateChannels(data) {
+        var template = Handlebars.compile($('#channelTemplate').html());
+        $('.subMenuContainer').append(template(data)); // append the new data.
+    } // end of populateChannels();
+
+    function populatePosts(data) {
+
+        var template = Handlebars.compile($('#topTrendingTemplate').html());
+        $('#newsFeed').append(template(data)); // load news feed
+    }
+
+    function populateLatestPosts(data) {
+
+        var template = Handlebars.compile($('#latestPostsTemplate').html());
+        $('#latestPosts').append(template(data)); // load news feed
+    }
+
+    
+</script>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedOffice.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,24 @@ namespace SharedOffice.Controllers
 {
     public class HomeController : Controller
     {
+        SharedOfficeContext db = new SharedOfficeContext();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult LoadChannels()
         {
-            ViewBag.Message = "Your application description page.";
+            var channels = from x in db.Channel select x;
+            return Json(channels);
 
-            return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult loadtop5Posts()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var popularposts = from x in db.Posts select x;
+            return Json(popularposts);
         }
     }
 }
