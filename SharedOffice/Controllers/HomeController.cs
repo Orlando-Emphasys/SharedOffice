@@ -13,6 +13,7 @@ namespace SharedOffice.Controllers
 
         public ActionResult Index()
         {
+            buildViewbag();
             return View();
         }
 
@@ -20,8 +21,6 @@ namespace SharedOffice.Controllers
         {
             var channels = from x in db.Channel select x;
             return Json(channels);
-
-            return View();
         }
 
         private void buildViewbag()
