@@ -69,10 +69,12 @@ html, body
     border-color: black;
 }
 
-.subMenuHeader
+.header
 {
     font-weight: bold;
+    font-size: 20px;
     text-decoration: underline;
+    text-align: center;
 }
 
 .contentContainer
@@ -84,9 +86,92 @@ html, body
 
 #kitchenHub
 {
+    position: relative;
     float: right;
     width: 30%;
-    height: 40%;
+    height: 50%;
     border: solid;
     border-color: black;
+}
+
+#kitDutyPerson1
+{
+    text-align: center;
+}
+
+#kitDutyPerson2
+{
+    margin-top: 10px;
+    margin-right: 25px;
+    text-align: center;
+}
+
+#starPower
+{
+    margin-top: 50px;
+    text-align: center;
+}
+
+#ratingText
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#kitchenDutyPeople
+{
+    margin-top: 50px;
+}
+
+.profileText
+{
+    display: inline;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#kitHubComments:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#kitHubComments
+{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.rating {
+  font-size: 35px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   color: yellow;
+   position: absolute;
+   cursor: pointer;
+}
+
+#kitHubPrevious:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#kitHubPrevious
+{
+    margin-top: 20px;
+    text-align: center;
+    color: blue;
 }
