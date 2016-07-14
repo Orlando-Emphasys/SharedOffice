@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedOffice.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +9,21 @@ namespace SharedOffice.Controllers
 {
     public class HomeController : Controller
     {
+        SharedOfficeContext db = new SharedOfficeContext();
+
         public ActionResult Index()
         {
-
-            buildViewbag();
             return View();
         }
-        
+
+        public ActionResult LoadChannels()
+        {
+            var channels = from x in db.Channel select x;
+            return Json(channels);
+
+            return View();
+        }
+
         private void buildViewbag()
         {
             var selectList = new SelectList(new List<SelectListItem>()
@@ -26,6 +35,12 @@ namespace SharedOffice.Controllers
             }, "Value", "Text", 1);
 
             ViewBag.Inventory = selectList;
+        }
+
+        public ActionResult loadtop5Posts()
+        {
+            var popularposts = from x in db.Posts select x;
+            return Json(popularposts);
         }
 
         public ActionResult OldPosts()

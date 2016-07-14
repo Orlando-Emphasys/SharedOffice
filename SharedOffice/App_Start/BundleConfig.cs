@@ -11,6 +11,15 @@ namespace SharedOffice
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            // Handle Bars
+            bundles.Add(new ScriptBundle("~/bundles/handleBars").Include(
+                      "~/Scripts/handlebars-v4.0.5.js"));
+
+            //SignalR-used for chat.
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                      "~/Scripts/jquery.signalR-2.2.0.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

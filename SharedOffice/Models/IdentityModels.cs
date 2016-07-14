@@ -17,14 +17,14 @@ namespace SharedOffice.Models
             return userIdentity;
         }
     }
-
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+             // select type of connection, specified in web.config
+             //: base("DefaultConnection", throwIfV1Schema: false)
+             : base("SharedOfficeContext", throwIfV1Schema: false)
 
+        { }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
