@@ -3,7 +3,6 @@
     }*@
 
 <style>
-
     #votesSection {
         margin: auto;
         display: inline-block;
@@ -11,22 +10,27 @@
     }
 
     .postsContainer {
-        width: 50%;
-        margin: auto;
+        /*width: 50%;
+        margin: auto;*/
+        background-color:bisque
     }
 
     h1 {
         color: blue;
     }
 
+    .btnDisabled {
+        color: dodgerblue;
+    }
+
 </style>
 
 <div class="subMenuContainer">
-    <p class="subMenuHeader">Channels</p>
+    <h1 class="subMenuHeader">Channels</h1>
 
     <script id="channelTemplate" type="text/x-handlebars-template">
         {{#each this}}
-        <p>{{name}}</p>
+        <p title="{{description}}">{{name}}</p>
         {{/each}}
         <button class="glyphicon glyphicon glyphicon-plus-sign"></button>
     </script>   <!--End of handleBars script-->
@@ -117,7 +121,6 @@
             var btn_like = $("#voteUp-" + id);
             var btn_dislike = $("#voteDown-" + id);
 
-            console.log(btn_like);
 
             btn_like[0].disabled = true; // disable the button.
             btn_like.addClass('btnDisabled');
