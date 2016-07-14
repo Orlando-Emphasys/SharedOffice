@@ -2,6 +2,7 @@
     <p class="header">Kitchen Hub</p>
 
     <div id="kitchenDutyPeople">
+        <p id="kitDutyTitleLabel">This week's kitchen assignees:</p>
         <div id="kitDutyPerson1">
             <img src="~/Images/ProfilePic1.png" />
             <p class="profileText">Orlando Rodriguez</p>
@@ -14,17 +15,75 @@
     </div>
 
     <div id="starPower">
-        <p id="ratingText">Rating: (Current rating: ??/5.0)</p>
-        <div class="rating">
+        <p id="ratingText">Rating: (Current rating: <text id="ratingNumber">0</text>/5)</p>
+        @*<div class="rating">
             <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-        </div>
+        </div>*@
+        <span class="star-rating">  
+            <input type="radio" name="rating" value="1" class="star"><i></i>  
+            <input type="radio" name="rating" value="2" class="star"><i></i>  
+            <input type="radio" name="rating" value="3" class="star"><i></i>  
+            <input type="radio" name="rating" value="4" class="star"><i></i>  
+            <input type="radio" name="rating" value="5" class="star"><i></i>
+        </span>
+    </div>
+    
+    <div id="previousLink">
+        @Html.ActionLink("View previous posts", "OldPosts", "Home", new { @id = "kitHubPrevious" })
     </div>
 
-    <p id="kitHubPrevious">View previous posts</p>
+    <div id="mainInventoryList">
+        <p style="font-weight:bold">Inventory:</p>
+        <div id="inventoryList1">
+            <div class="inventoryItem">
+                <p>Spoons: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Forks: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Knives: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Napkins: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>White Sugar: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Brown Sugar: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Coffee: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+
+            <div class="inventoryItem">
+                <p>Powdered Milk: </p>
+                @Html.DropDownList("InventoryList", (SelectList)ViewBag.inventory)
+            </div>
+        </div>
+
+        <button>Submit Inventory</button>
+    </div>
 
     <p id="kitHubComments">View comments</p>
 </div>
 
 <script>
-
+    $('.star').on('click', function () {
+        document.getElementById('ratingNumber').innerHTML = $(this).attr('value')
+    })
 </script>

@@ -9,6 +9,8 @@
 
 </head>
 <body>
+    @Scripts.Render("~/bundles/jquery")
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("KDShare | Dashboard", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("KDShare | News Feed", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -32,7 +34,7 @@
             @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

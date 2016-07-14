@@ -10,20 +10,27 @@ namespace SharedOffice.Controllers
     {
         public ActionResult Index()
         {
+
+            buildViewbag();
             return View();
         }
-
-        public ActionResult About()
+        
+        private void buildViewbag()
         {
-            ViewBag.Message = "Your application description page.";
+            var selectList = new SelectList(new List<SelectListItem>()
+            {
+                new SelectListItem() {Text="Full", Value="1" },
+                new SelectListItem() {Text="Half", Value="2" },
+                new SelectListItem() {Text="Low", Value="3" },
+                new SelectListItem() {Text="None", Value="4" }
+            }, "Value", "Text", 1);
 
-            return View();
+            ViewBag.Inventory = selectList;
         }
 
-        public ActionResult Contact()
+        public ActionResult OldPosts()
         {
-            ViewBag.Message = "Your contact page.";
-
+            buildViewbag();
             return View();
         }
     }
