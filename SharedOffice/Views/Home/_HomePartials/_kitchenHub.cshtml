@@ -1,5 +1,4 @@
-﻿<div id="kitchenHub">
-    <p class="header">Kitchen Hub</p>
+﻿    <p class="header">Kitchen Hub</p>
 
     <div id="kitchenDutyPeople">
         <p id="kitDutyTitleLabel">This week's kitchen assignees:</p>
@@ -29,7 +28,7 @@
     </div>
     
     <div id="previousLink">
-        @Html.ActionLink("View previous posts", "OldPosts", "Home", new { @id = "kitHubPrevious" })
+        @Html.ActionLink("View previous team feedback", "OldPosts", "Home", new { @id = "kitHubPrevious" })
     </div>
 
     <div id="mainInventoryList">
@@ -80,10 +79,36 @@
     </div>
 
     <p id="kitHubComments">View comments</p>
-</div>
-
+    
+    <div id="commentSection">
+        @Html.Partial("~/Views/Home/_HomePartials/_comment.cshtml")
+    </div>
 <script>
     $('.star').on('click', function () {
         document.getElementById('ratingNumber').innerHTML = $(this).attr('value')
+    })
+
+    $('#kitHubComments').on('click', function () {
+        var comments = document.getElementById('kitHubComments')
+
+
+        if (comments.innerHTML === 'View comments')
+        {
+            comments.innerHTML = 'Hide comments'
+            $('#commentSection').show()
+
+        }
+        else
+        {
+            comments.innerHTML = 'View comments'
+            $('#commentSection').hide()
+        }
+    })
+
+    $('#kitHubHideComments').on('click', function () {
+        var comments = document.getElementById('kitHubHideComments')
+        comments.id = 'kitHubComments'
+        comments.innerHTML = 'Show comments'
+        $('#commentSection').hide();
     })
 </script>

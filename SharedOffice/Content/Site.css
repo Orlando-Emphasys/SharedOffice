@@ -95,6 +95,8 @@ html, body
     border-left: solid;
     border-bottom: solid;
     border-color: black;
+    overflow-y: scroll;
+
 }
 
 #kitDutyPerson1
@@ -140,6 +142,19 @@ html, body
 }
 
 #kitHubComments
+{ 
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+#kitHubHideComments:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#kitHubHideComments
 { 
     position: absolute;
     bottom: 0;
@@ -263,4 +278,12 @@ html, body
 {
     margin-top: 30px;
     text-align: center;
+}
+
+#commentSection
+{
+    display: none;
+    position: absolute;
+    width: 100%;
+    bottom: -60px;
 }
