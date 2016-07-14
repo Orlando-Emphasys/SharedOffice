@@ -8,10 +8,9 @@
     @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/handleBars")
-    @Scripts.Render("~/bundles/signalR")
-    @Scripts.Render("~/signalr/hubs")
+    @*@Scripts.Render("~/bundles/signalR")*@
+    @*@Scripts.Render("~/signalr/hubs")*@
 
 </head>
 <body>
@@ -39,6 +38,8 @@
     <div class="mainContainer">
             @RenderBody()
     </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
 
    
     @RenderSection("scripts", required: false)

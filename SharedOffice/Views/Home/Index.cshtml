@@ -32,6 +32,7 @@
         {{#each this}}
         <p>{{name}}</p>
         {{/each}}
+        <button class="glyphicon glyphicon glyphicon-plus-sign"></button>
     </script>   <!--End of handleBars script-->
 </div>
 
@@ -53,9 +54,10 @@
                     <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
 
                     <div id="votesSection">
-                        <p id="likes-{{ID}}">Likes:{{upVotes}}</p>
-                        <p id="dislikes-{{ID}}">Dislikes:{{downVotes}}</p>
+                        <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
+                        <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
                     </div>
+                    <p>comment</p>
                     {{/each}}
                 </div>
             </script>   <!--End of handleBars script-->
@@ -70,9 +72,10 @@
                 <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
                 <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
                 <div id="votesSection">
-                    <p id="likes-{{ID}}">Likes:{{upVotes}}</p>
-                    <p id="dislikes-{{ID}}">Dislikes:{{downVotes}}</p>
+                    <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
+                    <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
                 </div>
+                <p>comment</p>
                 {{/each}}
             </script>   <!--End of handleBars script-->
         </div>
@@ -81,7 +84,6 @@
 
 <!--AJAX-->
 <script type="text/javascript">
-
 
     $(document).ready(function () {
         $.ajax({
@@ -107,47 +109,48 @@
             success: populateLatestPosts
         });
 
-        var voteHub = $.connection.voteHub; // definition in VoteHub.cs
-        $.connection.hub.start().done(function () {
 
-            voteUp = function (id) { // like btn.
-                //cache the like/dislike btn.
-                //var btn_like = $("#voteUp-" + id);
-                //var btn_dislike = $("#voteDown-" + id);
+        voteUp = function (id) { // like btn.
 
-                voteHub.server.voteUp(id); // increment total amount of votes.
-                //btn_like[0].disabled = true; // disable the button.
-                //btn_like.addClass('btnDisabled');
+            var votes = $("#likes-" + id + " span");
+            var currentVotes = votes.first().text();
+            currentVotes++;
+            votes.text(currentVotes);
 
-                //if (btn_dislike.is(":disabled")) { // if dislike btn is enabled the user hasnt voted.
-                //    btn_dislike[0].disabled = false; //enable back the dislike btn.
-                //    btn_dislike.removeClass('btnDisabled');
-                //}
+            //cache the like/dislike btn.
+            var btn_like = $("#voteUp-" + id);
+            var btn_dislike = $("#voteDown-" + id);
+
+            console.log(btn_like);
+
+            btn_like[0].disabled = true; // disable the button.
+            btn_like.addClass('btnDisabled');
+
+            if (btn_dislike.is(":disabled")) { // if dislike btn is enabled the user hasnt voted.
+                btn_dislike[0].disabled = false; //enable back the dislike btn.
+                btn_dislike.removeClass('btnDisabled');
+            }
+        }
+
+        voteDown = function (id) {
+            //cache the like/dislike btn.
+            var btn_like = $("#voteUp-" + id);
+            var btn_dislike = $("#voteDown-" + id);
+
+            btn_dislike[0].disabled = true; //disable the button.
+            btn_dislike.addClass('btnDisabled');
+
+            if (btn_like.is(":disabled")) {
+                btn_like[0].disabled = false;//enable back the like btn.
+                btn_like.removeClass('btnDisabled');
             }
 
-            voteDown = function (id) {
-                //cache the like/dislike btn.
-                //var btn_like = $("#voteUp-" + id);
-                //var btn_dislike = $("#voteDown-" + id);
+            var votes = $("#dislikes-" + id + " span");
+            var currentVotes = votes.first().text();
+            currentVotes++;
+            votes.text(currentVotes);
+        }
 
-                voteHub.server.voteDown(id);
-                //btn_dislike[0].disabled = true; //disable the button.
-                //btn_dislike.addClass('btnDisabled');
-
-                //if (btn_like.is(":disabled")) {
-                //    btn_like[0].disabled = false;//enable back the like btn.
-                //    btn_like.removeClass('btnDisabled');
-                //}
-            }
-
-            voteHub.client.updateVoteResults = function (id, post) {
-
-                console.log("updating votes");
-                //update view.
-                $("#likes-" + id).text(post.upVotes);
-                $("#dislikes-" + id).text(post.downVotes);
-            }
-        });
 
     });
 
@@ -168,5 +171,5 @@
         $('#latestPosts').append(template(data)); // load news feed
     }
 
-    
+
 </script>
