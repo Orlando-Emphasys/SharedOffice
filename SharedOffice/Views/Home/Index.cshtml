@@ -12,7 +12,6 @@
     .postsContainer {
         /*width: 50%;
         margin: auto;*/
-        background-color:bisque
     }
 
     h1 {
@@ -23,6 +22,35 @@
         color: dodgerblue;
     }
 
+    .postBackground {
+        width: 50%;
+        background-color: #b3d9ff;
+        padding-left: 25px;
+        margin-left: 130px;
+    }
+
+    .channelItem:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+
+    .postComment {
+        text-align: right;
+        margin-right: 10px;
+    }
+
+        .postComment:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+    .postContent {
+        text-align: center;
+        font-weight: bold;
+        padding-top: 10px;
+        font-size: 16px;
+    }
 </style>
 
 <div class="subMenuContainer">
@@ -30,7 +58,7 @@
 
     <script id="channelTemplate" type="text/x-handlebars-template">
         {{#each this}}
-        <p title="{{description}}">{{name}}</p>
+        <p class="channelItem" title="{{description}}">{{name}}</p>
         {{/each}}
         <button class="glyphicon glyphicon glyphicon-plus-sign"></button>
     </script>   <!--End of handleBars script-->
@@ -45,19 +73,24 @@
     <div class="postsContainer">
 
         <div id="newsFeed">
-            <h1>Top Trending</h1>
+            <h1 style="margin-left:470px">Top Trending</h1>
             <script id="topTrendingTemplate" type="text/x-handlebars-template">
                 <div id="post">
                     {{#each this}}
-                    <p>{{content}}</p>
-                    <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
-                    <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
+                    <div class="postBackground">
+                        <p class="postContent">{{content}}</p>
+                        <p class="postContent">Channel: Office Upkeeps</p>
+                        <div>
+                            <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
+                            <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
+                        </div>
 
-                    <div id="votesSection">
-                        <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
-                        <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
+                        <div id="votesSection">
+                            <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
+                            <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
+                        </div>
+                        <p class="postComment">Comment</p>
                     </div>
-                    <p>comment</p>
                     {{/each}}
                 </div>
             </script>   <!--End of handleBars script-->
@@ -65,17 +98,22 @@
 
         <!--Latests Posts-->
         <div id="latestPosts">
-            <h1>Latest Posts</h1>
+            <h1 style="margin-left:470px">Latest Posts</h1>
             <script id="latestPostsTemplate" type="text/x-handlebars-template">
                 {{#each this}}
-                <p>{{content}}</p>
-                <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
-                <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
-                <div id="votesSection">
-                    <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
-                    <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
+                <div class="postBackground">
+                    <p class="postContent">{{content}}</p>
+                    <p class="postContent">Channel: Office Upkeeps</p>
+                    <div>
+                        <button id="voteUp-{{ID}}" onclick="voteUp({{ID}})" class="glyphicon glyphicon-thumbs-up"></button>
+                        <button id="voteDown-{{ID}}" onclick="voteDown({{ID}})" class="glyphicon glyphicon-thumbs-down"></button>
+                    </div>
+                    <div id="votesSection">
+                        <p id="likes-{{ID}}">Likes:<span>{{upVotes}}</span></p>
+                        <p id="dislikes-{{ID}}">Dislikes:<span>{{downVotes}}</span></p>
+                    </div>
+                    <p class="postComment">Comment</p>
                 </div>
-                <p>comment</p>
                 {{/each}}
             </script>   <!--End of handleBars script-->
         </div>
